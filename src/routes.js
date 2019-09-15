@@ -1,53 +1,35 @@
 import {
   createAppContainer,
-  createDrawerNavigator,
   createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
 
-import SideMenu from '~/components/SideMenu';
-
-import AuthSignIn from '~/screens/AuthSignin';
-import SignIn from '~/screens/SignIn';
-import ForgotPassword from '~/screens/ForgotPassword';
-import Services from '~/screens/Services';
-import ServiceDetails from '~/screens/ServiceDetails';
+import Welcome from '~/screens/Welcome';
+import SocialLogin from '~/screens/SocialLogin';
+import Places from '~/screens/Places';
 
 const AuthNavigator = createStackNavigator(
   {
-    AuthSignIn,
-    SignIn,
-    ForgotPassword,
+    Welcome,
+    SocialLogin,
   },
   {
     headerMode: 'none',
     defaultNavigationOptions: {
       gesturesEnabled: false,
     },
-  },
+  }
 );
 
-const AppNavigator = createDrawerNavigator(
-  {
-    Services,
-    ServiceDetails,
-  },
-  {
-    gesturesEnabled: false,
-    contentComponent: SideMenu,
-  },
-);
+const AppNavigator = createStackNavigator({
+  Places,
+});
 
 const Routes = createAppContainer(
-  createSwitchNavigator(
-    {
-      Auth: AuthNavigator,
-      App: AppNavigator,
-    },
-    // {
-    //   initialRouteName: isLogged ? 'App' : 'Auth',
-    // },
-  ),
+  createSwitchNavigator({
+    Auth: AuthNavigator,
+    App: AppNavigator,
+  })
 );
 
 export default Routes;
