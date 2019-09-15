@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export const TOKEN_KEY = '@viabrasil:token';
+export const TOKEN_KEY = '@invilliamobileapp:token';
 
 export const getToken = async () => {
   const token = await AsyncStorage.getItem(TOKEN_KEY);

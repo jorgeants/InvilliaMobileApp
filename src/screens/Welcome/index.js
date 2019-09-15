@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import { navigate } from '~/services/navigation';
 import { Container, Button, ButtonText } from './styles';
 
 class Welcome extends Component {
-  _goToLogin = () => {
+  goToLogin = () => {
     navigate('SocialLogin');
   };
 
@@ -17,7 +17,7 @@ class Welcome extends Component {
     return (
       <Container>
         <Text>Welcome</Text>
-        <Button onPress={this._goToLogin}>
+        <Button onPress={this.goToLogin}>
           <ButtonText>Começar</ButtonText>
         </Button>
       </Container>
@@ -25,14 +25,12 @@ class Welcome extends Component {
   }
 }
 
-// const mapStateToProps = state => ({});
+const mapStateToProps = state => ({});
 
 // const mapDispatchToProps = dispatch =>
 //   bindActionCreators(Actions, dispatch);
 
-// export default connect(
-//   mapStateToProps,
-//   // mapDispatchToProps
-// )(Welcome);
-
-export default Welcome;
+export default connect(
+  mapStateToProps,
+  // mapDispatchToProps
+)(Welcome);

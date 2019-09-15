@@ -15,9 +15,14 @@ const AuthNavigator = createStackNavigator(
   }
 );
 
-const AppNavigator = createStackNavigator({
-  Places,
-});
+const AppNavigator = createStackNavigator(
+  {
+    Places,
+  },
+  {
+    headerMode: 'none',
+  }
+);
 
 const Routes = createAppContainer(
   createSwitchNavigator({

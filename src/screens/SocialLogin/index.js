@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { navigate } from '~/services/navigation';
 
-// import { Container } from './styles';
+import { Container, Button, ButtonText } from './styles';
 
 class SocialLogin extends Component {
+  goToPlaces = () => {
+    navigate('Places');
+  };
+
   render() {
-    return <View>
-      <Text>SocialLogin</Text>
-    </View>;
+    return (
+      <Container>
+        <Text>Social Login</Text>
+        <Button onPress={this.goToPlaces}>
+          <ButtonText>Places</ButtonText>
+        </Button>
+      </Container>
+    );
   }
 }
 
