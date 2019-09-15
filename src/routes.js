@@ -1,8 +1,5 @@
-import {
-  createAppContainer,
-  createStackNavigator,
-  createSwitchNavigator,
-} from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import Welcome from '~/screens/Welcome';
 import SocialLogin from '~/screens/SocialLogin';
@@ -15,9 +12,6 @@ const AuthNavigator = createStackNavigator(
   },
   {
     headerMode: 'none',
-    defaultNavigationOptions: {
-      gesturesEnabled: false,
-    },
   }
 );
 

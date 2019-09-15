@@ -4,23 +4,35 @@ import { View, Text } from 'react-native';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { navigate } from '~/services/navigation';
 
-// import { Container } from './styles';
+import { Container, Button, ButtonText } from './styles';
 
 class Welcome extends Component {
+  _goToLogin = () => {
+    navigate('SocialLogin');
+  };
+
   render() {
-    return <View>
-      <Text>Welcome</Text>
-    </View>;
+    return (
+      <Container>
+        <Text>Welcome</Text>
+        <Button onPress={this._goToLogin}>
+          <ButtonText>Começar</ButtonText>
+        </Button>
+      </Container>
+    );
   }
 }
 
-const mapStateToProps = state => ({});
+// const mapStateToProps = state => ({});
 
 // const mapDispatchToProps = dispatch =>
 //   bindActionCreators(Actions, dispatch);
 
-export default connect(
-  mapStateToProps,
-  // mapDispatchToProps
-)(Welcome);
+// export default connect(
+//   mapStateToProps,
+//   // mapDispatchToProps
+// )(Welcome);
+
+export default Welcome;

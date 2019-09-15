@@ -7,8 +7,8 @@ import { Provider } from 'react-redux';
 // import KeepAwake from 'react-native-keep-awake';
 // import store from './store';
 
-// import Routes from './routes';
-// import { setNavigator } from './services/navigation';
+import Routes from './routes';
+import { setNavigator } from './services/navigation';
 
 // import BackgroundLocation from '~/components/BackgroundLocation';
 
@@ -18,7 +18,7 @@ const App = () => (
   //   <Routes ref={setNavigator} />
   //   <KeepAwake />
   // </Provider>
-  <Text>Text</Text>
+  <Routes ref={setNavigator} />
 );
 
 export default App;
