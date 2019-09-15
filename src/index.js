@@ -1,5 +1,4 @@
 import '~/config/ReactotronConfig';
-import '~/config/DevToolsConfig';
 
 import React from 'react';
 import { Text } from 'react-native';
