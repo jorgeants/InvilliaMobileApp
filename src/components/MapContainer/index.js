@@ -3,18 +3,17 @@ import { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import { MapWrappper } from './styles';
 
-export default function MapContainer() {
+export default function MapContainer({ region }) {
   return (
     <MapWrappper
       provider={PROVIDER_GOOGLE}
-      loadingEnabled
-      initialRegion={{
-        latitude: -22.5502904,
-        longitude: -44.115015,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+      region={{
+        ...region,
+        latitudeDelta: 0.0143,
+        longitudeDelta: 0.0134,
       }}
-      zoom={16}
+      showsUserLocation
+      loadingEnabled
     />
   );
 }
