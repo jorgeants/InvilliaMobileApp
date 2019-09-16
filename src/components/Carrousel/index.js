@@ -62,7 +62,7 @@ const Carrousel = ({ items }) => {
   };
 
   return (
-    <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
+    <ScrollView testID="welcome-carousel" horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
       {items.map(item => (
         <Frame key={item.position}>
           <ImageContainer>{imageSVG(item.image)}</ImageContainer>

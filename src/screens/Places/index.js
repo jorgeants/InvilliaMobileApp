@@ -9,8 +9,6 @@ import * as PlacesActions from '~/store/modules/places/actions';
 
 import MapContainer from '~/components/MapContainer';
 
-import { Header, Search } from './styles';
-
 class Places extends Component {
   constructor(props) {
     super(props);
@@ -98,7 +96,7 @@ class Places extends Component {
     const { loading, location } = this.state;
     const { places } = this.props
 
-    return (!loading ? <MapContainer region={location} places={places} /> : <Text>'Carregando...'</Text>);
+    return (!loading ? <MapContainer region={location} /> : <Text>'Carregando...'</Text>);
   }
 }
 

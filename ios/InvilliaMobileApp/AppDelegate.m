@@ -12,12 +12,14 @@
 #import <React/RCTRootView.h>
 
 #import <GoogleMaps/GoogleMaps.h>
+#import <GooglePlaces/GooglePlaces.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [GMSServices provideAPIKey:@"AIzaSyBaWJ_08kMTxV4-m8aIAhqFuzjNVsRM31g"];
+  [GMSPlacesClient provideAPIKey:@"AIzaSyBaWJ_08kMTxV4-m8aIAhqFuzjNVsRM31g"];
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"InvilliaMobileApp"

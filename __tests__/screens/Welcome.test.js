@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import Carrousel from '~/components/Carrousel';
+import React from 'react';
 
-import { Container } from './styles';
+import Welcome from '~/screens/Welcome';
 
-class Welcome extends Component {
-  constructor(props) {
-    super(props);
+import { render, fireEvent } from '@testing-library/react-native';
 
-    this.state = {
+describe('Welcome component', () => {
+  it('should be able to render component', () => {
+    const { getByTestId } = render(<Welcome />);
+
+    const state = {
       items: [
         {
           position: 1,
@@ -32,17 +33,9 @@ class Welcome extends Component {
         },
       ],
     };
-  }
 
-  render() {
-    const { items } = this.state;
+    // fireEvent.change();
 
-    return (
-      <Container testID="Welcome">
-        <Carrousel items={items} />
-      </Container>
-    );
-  }
-}
-
-export default Welcome;
+    expect(getByTestId('Welcome')).toBeTruthy();
+  })
+})
