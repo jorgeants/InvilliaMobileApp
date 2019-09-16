@@ -1,20 +1,29 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
+import { Environment } from '~/config/environment';
 
-// import { apiLocation } from '../../../services/api';
+import { api } from '~/services/api';
 
-import * as StatesActions from './actions';
+import * as PlacesActions from './actions';
 
-function* loadStatesRequest() {
+function* loadPlacesRequest(action) {
   try {
-    // const response = yield call(
-    //   apiLocation.get,
-    //   '/localidades/estados',
-    // );
+    const { latitude, longitude } = action.payload.location.coords;
 
-    yield put(StatesActions.loadStatesSuccess(''));
+    const response = yield api.get(
+      `/nearbysearch/json?location=${latitude},${longitude}`,
+      {
+        params: {
+          radius: 200,
+          key: Environment.Google_Places_API_Key,
+        },
+      }
+    );
+
+    yield put(PlacesActions.loadPlacesSuccess(response.data.results));
   } catch (error) {
-    yield put(StatesActions.loadStatesFailure());
+    console.tron.log(error);
+    yield put(PlacesActions.loadPlacesFailure("Error ao carregar os locais próximos"));
   }
 }
 
-export default all([takeLatest('@states/LOAD_REQUEST', loadStatesRequest)]);
+export default all([takeLatest('@places/LOAD_REQUEST', loadPlacesRequest)]);

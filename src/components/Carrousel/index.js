@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
+import { PropTypes } from 'prop-types';
 import { navigate } from '~/services/navigation';
 
 import {
@@ -57,8 +58,8 @@ const Carrousel = ({ items }) => {
         <Page active={position === 2} />
         <Page active={position === 3} />
       </Pagination>
-    )
-  }
+    );
+  };
 
   return (
     <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
@@ -72,6 +73,10 @@ const Carrousel = ({ items }) => {
       ))}
     </ScrollView>
   );
+};
+
+Carrousel.propTypes = {
+  items: PropTypes.array.isRequired,
 };
 
 export default Carrousel;

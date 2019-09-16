@@ -1,9 +1,10 @@
 import React from 'react';
+import PropsType from 'prop-types';
 import { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 import { MapWrappper } from './styles';
 
-export default function MapContainer({ region, places }) {
+const MapContainer = ({ region, places }) => {
   return (
     <MapWrappper
       provider={PROVIDER_GOOGLE}
@@ -29,3 +30,10 @@ export default function MapContainer({ region, places }) {
     </MapWrappper>
   );
 }
+
+MapContainer.propsType = {
+  region: PropsType.object.isRequired,
+  places: PropsType.array.isRequired
+}
+
+export default MapContainer;

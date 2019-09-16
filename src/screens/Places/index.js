@@ -5,11 +5,11 @@ import Geolocation from 'react-native-geolocation-service';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { Environment } from '~/config/environment';
-import { api } from '~/services/api';
+import * as PlacesActions from '~/store/modules/places/actions';
+
 import MapContainer from '~/components/MapContainer';
 
-import { Container, Button, ButtonText } from './styles';
+import { Header, Search } from './styles';
 
 class Places extends Component {
   constructor(props) {
@@ -49,12 +49,12 @@ class Places extends Component {
 
     if (status === PermissionsAndroid.RESULTS.DENIED) {
       ToastAndroid.show(
-        'Location permission denied by user.',
+        'Ative a localização para uma melhor experiência.',
         ToastAndroid.LONG
       );
     } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
       ToastAndroid.show(
-        'Location permission revoked by user.',
+        'Permita que aplicativo use sua localização para uma melhor experiência.',
         ToastAndroid.LONG
       );
     }
@@ -71,13 +71,11 @@ class Places extends Component {
       Geolocation.getCurrentPosition(
         position => {
           this.setState({ location: position.coords, loading: false });
-          console.tron.log(position);
 
           this.getNearbyPlaces(position);
         },
         error => {
           this.setState({ location: error, loading: false });
-          console.tron.log(error);
         },
         {
           enableHighAccuracy: true,
@@ -91,34 +89,27 @@ class Places extends Component {
   };
 
   getNearbyPlaces = async position => {
-    const { latitude, longitude } = position.coords;
+    const { loadPlacesRequest } = this.props
 
-    const response = await api.get(
-      `/nearbysearch/json?location=${latitude},${longitude}`,
-      {
-        params: {
-          radius: 200,
-          key: Environment.Google_Places_API_Key,
-        },
-      }
-    );
-
-    this.setState({ places: response.data.results });
+    await loadPlacesRequest(position);
   };
 
   render() {
-    const { loading, location, places } = this.state;
+    const { loading, location } = this.state;
+    const { places } = this.props
 
     return (!loading ? <MapContainer region={location} places={places} /> : <Text>'Carregando...'</Text>);
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  places: state.places.data,
+});
 
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(Actions, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(PlacesActions, dispatch);
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
+  mapDispatchToProps
 )(Places);
