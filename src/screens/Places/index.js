@@ -5,6 +5,8 @@ import Geolocation from 'react-native-geolocation-service';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import { Environment } from '~/config/environment';
+import { api } from '~/services/api';
 import MapContainer from '~/components/MapContainer';
 
 import { Container, Button, ButtonText } from './styles';
@@ -17,6 +19,7 @@ class Places extends Component {
       location: null,
       error: null,
       loading: false,
+      places: [],
     };
   }
 
@@ -69,6 +72,8 @@ class Places extends Component {
         position => {
           this.setState({ location: position.coords, loading: false });
           console.tron.log(position);
+
+          this.getNearbyPlaces(position);
         },
         error => {
           this.setState({ location: error, loading: false });
@@ -85,10 +90,26 @@ class Places extends Component {
     });
   };
 
-  render() {
-    const { loading, location } = this.state;
+  getNearbyPlaces = async position => {
+    const { latitude, longitude } = position.coords;
 
-    return (!loading ? <MapContainer region={location} /> : <Text>'Carregando...'</Text>);
+    const response = await api.get(
+      `/nearbysearch/json?location=${latitude},${longitude}`,
+      {
+        params: {
+          radius: 200,
+          key: Environment.Google_Places_API_Key,
+        },
+      }
+    );
+
+    this.setState({ places: response.data.results });
+  };
+
+  render() {
+    const { loading, location, places } = this.state;
+
+    return (!loading ? <MapContainer region={location} places={places} /> : <Text>'Carregando...'</Text>);
   }
 }
 
