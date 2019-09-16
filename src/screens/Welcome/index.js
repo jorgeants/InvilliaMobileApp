@@ -1,36 +1,48 @@
 import React, { Component } from 'react';
+import Carrousel from '~/components/Carrousel';
 
-import { Text } from 'react-native';
-
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { navigate } from '~/services/navigation';
-
-import { Container, Button, ButtonText } from './styles';
+import { Container } from './styles';
 
 class Welcome extends Component {
-  goToLogin = () => {
-    navigate('SocialLogin');
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: [
+        {
+          position: 1,
+          image: 'maker',
+          description:
+            'Bem-vindo o PlacerApp, sua principal fonte de informações de locais',
+          startButton: false,
+        },
+        {
+          position: 2,
+          image: 'planet',
+          description:
+            'Se encontre em qualquer lugar do mundo, da sua maneira, do seu jeito',
+          startButton: false,
+        },
+        {
+          position: 3,
+          image: 'location',
+          description:
+            'Não esqueça de ativar e perimtir sua localização para uma melhor experiência, e divirta-se',
+          startButton: true,
+        },
+      ],
+    };
+  }
 
   render() {
+    const { items } = this.state;
+
     return (
       <Container>
-        <Text>Welcome</Text>
-        <Button onPress={this.goToLogin}>
-          <ButtonText>Começar</ButtonText>
-        </Button>
+        <Carrousel items={items} />
       </Container>
     );
   }
 }
 
-const mapStateToProps = state => ({});
-
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(Actions, dispatch);
-
-export default connect(
-  mapStateToProps,
-  // mapDispatchToProps
-)(Welcome);
+export default Welcome;
